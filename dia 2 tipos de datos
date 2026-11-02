@@ -1,0 +1,183 @@
+# Día 2: Tipos de Datos y Estructuras en python
+
+---
+
+## 1. Introducción: ¿Qué es un Tipo de Dato y por qué importa?
+
+Un **tipo de dato** es la clasificación que se le asigna a una pieza de información dentro de la memoria de la computadora. Le indica al intérprete de Python dos aspectos esenciales:
+1. Qué clase de información contiene la variable.
+2. Qué operaciones matemáticas, lógicas o de manipulación están permitidas realizar sobre ella.
+
+Distinguir correctamente entre texto y números es crítico en cualquier desarrollo:
+* Si intentamos sumar el texto `"20"` con el texto `"3"`, Python realiza una **concatenación** (pega las cadenas), dando como resultado `"203"`.
+* Si tratamos ambos valores como números enteros (`20 + 3`), Python realiza un **cálculo aritmético**, obteniendo `23`.
+
+---
+
+## 2. El Test de Verificación Rapidito: ¿Cómo Identificar un Dato?
+
+Para identificar qué tipo de dato contiene una variable a simple vista en el código, se aplican tres preguntas clave:
+
+1. **¿Tiene comillas (`" "` o `' '`)?**
+   * **Sí:** Es siempre un **Texto (`str`)**. No importa si dentro hay letras (`"Elena"`), números (`"38.5"`) o booleanos (`"True"`).
+2. **¿Es un número sin comillas?**
+   * **Sin punto decimal:** Es un **Número Entero (`int`)** (ej. `23`).
+   * **Con punto decimal (`.`):** Es un **Número Decimal (`float`)** (ej. `38.2`).
+3. **¿Es un valor de Sí/No o Encendido/Apagado?**
+   * **Sí:** Es un **Booleano (`bool`)**. Únicamente existen dos valores en todo Python: **`True`** (Verdadero) y **`False`** (Falso). Se escriben **sin comillas** y obligatoriamente con la **primera letra mayúscula**.
+
+### Verificación en Código
+Python incluye la función integrada `type()`, la cual retorna la clase exacta a la que pertenece cualquier variable en tiempo de ejecución:
+
+```python
+edad = 23
+print(type(edad))  # Muestra: <class 'int'>
+```
+
+---
+
+## 3. Los 4 Tipos de Datos Primitivos
+
+Los datos primitivos o escalares representan la unidad mínima e individual de información:
+
+* **`str` (String / Cadena de Texto):** Representa secuencias de caracteres planos. Se utiliza para guardar texto, nombres, códigos o descripciones.
+* **`int` (Integer / Entero):** Representa números enteros positivos o negativos sin parte fraccionaria. Se aplica para contar unidades discretas (cantidades, identificadores, edades).
+* **`float` (Floating point / Decimal):** Representa cantidades numéricas continuas con punto decimal. Se utiliza para mediciones numéricas de precisión (pesos, temperaturas, costos, promedios).
+* **`bool` (Boolean / Booleano):** Representa estados lógicos binarios (`True` / `False`). Se utiliza como interruptores o banderas para control de flujo en el programa (¿está activo?, ¿es válido?, ¿se completó?).
+
+---
+
+## 4. Conversión Explícita de Tipos (*Type Casting*)
+
+En Python, la función integrada `input()` **siempre devuelve los datos ingresados como texto (`str`)**. Para operar numéricamente con las entradas del usuario, es indispensable aplicar **Type Casting** (conversión explícita de tipos):
+
+* `int(variable)`: Convierte un texto numérico a entero.
+* `float(variable)`: Convierte un texto numérico a flotante/decimal.
+* `str(variable)`: Convierte valores numéricos o booleanos a texto.
+* `bool(variable)`: Evalúa si un valor tiene contenido (`True`) o está vacío/cero (`False`).
+
+```python
+# Entrada del usuario (str)
+edad_texto = input("Ingrese la edad: ")
+
+# Conversión explícita a int
+edad = int(edad_texto)
+```
+
+---
+
+## 5. Los 4 Grandes Grupos de Datos en Python
+
+Para administrar información compleja de manera estructurada, los tipos de datos en Python se clasifican en cuatro grandes familias según la forma en que organizan la información en memoria:
+
+### 1. Primitivos (Valores Escalares)
+Guardan **un único valor individual** suelto sin símbolos de agrupación.
+* Ejemplos: `usuario = "Juan Marcos"`, `temperatura = 36.6`.
+
+### 2. Secuencias (Colecciones Ordenadas)
+Agrupan múltiples elementos en una secuencia lineal ordenada donde cada dato ocupa un índice numérico determinado (`0, 1, 2...`).
+* **`list` (Lista):** Definida mediante **corchetes `[...]`**. Permite almacenar múltiples datos organizados secuencialmente.
+  ```python
+  lista_usuarios = ["Mariana", "Juan", "Elena"]
+  ```
+
+### 3. Mapeos (Estructuras Asociativas Clave-Valor)
+Guardan colecciones de datos donde cada elemento posee una etiqueta única (**Clave**) que permite acceder directamente a su información (**Valor**).
+* **`dict` (Diccionario):** Definido mediante **llaves `{"clave": valor}`**. Es la estructura idónea para representar registros o fichas completas.
+  * **Nota sintáctica:** En Python no es necesario escribir la palabra `dict` al declarar una variable; la presencia de las llaves `{}` con la pareja `"clave": valor` le indica al intérprete que se trata de un diccionario.
+  ```python
+  expediente_usuario = {
+      "nombre": "Juan Marcos",
+      "edad": 23,
+      "promedio": 98.5,
+      "activo": True
+  }
+  ```
+
+### 4. Conjuntos y Tipos Especiales (Unicidad y Ausencia)
+* **`set` (Conjunto):** Definido mediante llaves sin parejas de clave-valor `{elem1, elem2}`. Colección no ordenada de elementos donde **no se permiten valores duplicados**. Ideal para filtrar elementos únicos sin repetición.
+* **`NoneType` (`None`):** Representa explícitamente la **ausencia de valor** en memoria. Es ideal para representar variables o casillas no asignadas temporalmente.
+  ```python
+  categorias = {"Desarrollo", "Diseño", "Gestión"}
+  resultado_pendiente = None
+  ```
+
+---
+
+## 6. Concepto Clave: Mutabilidad vs. Inmutabilidad
+
+Un concepto esencial al trabajar con colecciones de datos es la **mutabilidad**:
+
+* **Mutable (Modificable):** Significa que la estructura de datos puede actualizarse en tiempo de ejecución (añadir, eliminar o modificar elementos) sin cambiar su posición en memoria. La **Lista (`list`)** y el **Diccionario (`dict`)** son mutables.
+  * *Analogía:* Es como un pizarrón blanco donde se agregan, corrigen o borran datos con un plumón.
+* **Inmutable (No modificable):** Estructura que no puede alterarse una vez creada. La **Tupla (`tuple`)** y los tipos primitivos (`str`, `int`, `float`, `bool`) son inmutables.
+  * *Analogía:* Es como una tabla de piedra grabada; si se requiere un cambio, debe crearse una estructura completamente nueva.
+
+---
+
+## 7. Tabla Comparativa General
+
+A continuación se presenta el cuadro sintético que organiza las cuatro grandes familias de datos en Python:
+
+| Grupo | Tipo en Python | Sintaxis / Símbolo | Mutabilidad | Uso Principal |
+| :--- | :--- | :--- | :--- | :--- |
+| **Primitivo** | `str` | `"Texto"` o `'Texto'` | Inmutable | Nombres, descripciones y textos planos. |
+| **Primitivo** | `int` | Número sin punto (`23`) | Inmutable | Conteo exacto de unidades y cantidades. |
+| **Primitivo** | `float` | Número con punto (`38.5`) | Inmutable | Mediciones de precisión, precios y promedios. |
+| **Primitivo** | `bool` | `True` o `False` | Inmutable | Banderas de estado (activo/inactivo, válido). |
+| **Secuencia** | `list` | `[val1, val2]` | **Mutable** | Colecciones ordenadas de datos modificables. |
+| **Secuencia** | `tuple` | `(val1, val2)` | Inmutable | Conjuntos estáticos de datos fijos `("A", "B")`. |
+| **Mapeo** | `dict` | `{"clave": valor}` | **Mutable** | Registros completos con etiquetas descriptivas. |
+| **Conjunto** | `set` | `{val1, val2}` | **Mutable** | Catálogo de elementos únicos sin duplicar. |
+| **Especial** | `NoneType` | `None` | Inmutable | Variables sin valor asignado aún. |
+
+---
+
+## 8. Código de Práctica Integrado (`dia02_tipos_datos.py`)
+
+A continuación se presenta el script correspondiente a la práctica del Día 2 listo para ser probado en Visual Studio Code:
+
+```python
+# dia02_tipos_datos.py
+# Práctica del Día 2 - Tipos de Datos y Estructuras en Python
+
+# 1. DATOS PRIMITIVOS Y TYPE CASTING
+print("=== REGISTRO DE USUARIO ===")
+nombre_usuario = input("Ingrese nombre de usuario: ")
+edad_input = input("Ingrese edad: ")
+promedio_input = input("Ingrese promedio o puntaje: ")
+
+# Conversión explícita (Casting)
+edad = int(edad_input)
+promedio = float(promedio_input)
+es_destacado = promedio >= 90.0
+
+# 2. ESTRUCTURA DE MAPEO (DICCIONARIO)
+expediente = {
+    "nombre": nombre_usuario,
+    "edad": edad,
+    "promedio": promedio,
+    "es_destacado": es_destacado
+}
+
+# 3. ESTRUCTURA DE SECUENCIA (LISTA MUTABLE)
+lista_usuarios = ["Carlos Mendoza", "Elena Gómez"]
+lista_usuarios.append(expediente["nombre"])  # Agregar nuevo usuario
+
+# 4. ESTRUCTURA ESPECIAL (NONE)
+asignacion_pendiente = None
+
+# 5. DESPLIEGUE DE RESULTADOS Y TIPOS DE DATOS
+print("\n=== RESUMEN DE REGISTRO ===")
+print(f"Usuario: {expediente['nombre']} | Tipo: {type(expediente['nombre'])}")
+print(f"Edad: {expediente['edad']} años | Tipo: {type(expediente['edad'])}")
+print(f"Estatus destacado: {expediente['es_destacado']} | Tipo: {type(expediente['es_destacado'])}")
+print(f"Lista de usuarios actualizada: {lista_usuarios} | Tipo: {type(lista_usuarios)}")
+print(f"Estado de asignación: {asignacion_pendiente} | Tipo: {type(asignacion_pendiente)}")
+```
+
+---
+
+## 9. Conclusión y Checklist del Día 2
+
+El dominio de los tipos de datos en Python garantiza que la información sea procesada y transformada de manera segura, evitando errores de compatibilidad en el código.
